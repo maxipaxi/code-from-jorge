@@ -14,9 +14,12 @@ public class Main {
         processAndReset();
       }
     }
+    void execute(String str){
+      buildQueryAndProcessFunnyStuff( str );
+    }
     void processAndReset(){
       // Process 20K chunk
-      buildQueryAndProcessFunnyStuff( dataString.toString() );
+      execute(dataString.toString());
 
       dataString = new StringBuffer();
       counter = 0; // Reset the Counter
