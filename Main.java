@@ -19,13 +19,16 @@ public class Main {
         buildQueryAndProcessFunnyStuff( dataString.toString() );
     }
   }
+  void addElementToChunk(String element, int counter, StringBuffer dataString){
+    dataString.append( element ).append(",");
+    counter++;
+    processIfFullChunk(counter, dataString);
+  }
   void processByChunks(String[] paramArray) {
     StringBuffer dataString = new StringBuffer();
     int counter = 0;
     for (String param : paramArray) {
-        dataString.append( param ).append(",");
-        counter++;
-        processIfFullChunk(counter, dataString);
+      addElementToChunk(param, counter, dataString);
     }
     finalizeChunk(dataString);
   }
