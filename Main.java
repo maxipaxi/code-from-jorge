@@ -3,11 +3,6 @@ public class Main {
   private interface StuffProcessor {
     void execute(String str);
   }
-  private class StuffProcessorImpl implements StuffProcessor {
-    public void execute(String str){
-      buildQueryAndProcessFunnyStuff( str );
-    }
-  }
   private class Chunk {
     private int counter; 
     private int size; 
@@ -43,7 +38,11 @@ public class Main {
     }
   }
   void processByChunks(String[] paramArray) {
-    Chunk chunk = new Chunk(20000, new StuffProcessorImpl());
+    Chunk chunk = new Chunk(20000, new StuffProcessor(){
+      public void execute(String str){
+        buildQueryAndProcessFunnyStuff( str );
+      }
+    });
     for (String param : paramArray) {
       chunk.addElement(param);
     }
