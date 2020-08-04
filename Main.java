@@ -11,21 +11,19 @@ public class Main {
     }
     void processIfFull(){
       if (counter % size == 0) {
-        // Process 20K chunk
-        buildQueryAndProcessFunnyStuff( dataString.toString() );
-
-        dataString = new StringBuffer();
-        counter = 0; // Reset the Counter
+        processAndReset();
       }
     }
+    void processAndReset(){
+      // Process 20K chunk
+      buildQueryAndProcessFunnyStuff( dataString.toString() );
+
+      dataString = new StringBuffer();
+      counter = 0; // Reset the Counter
+    }
     void finalizeChunk(){
-      /*
-      * WARNING: Code duplication
-      * 
-      * For the remaining beyond %20K
-      */
-      if (dataString!= null && dataString.length() > 0) {
-          buildQueryAndProcessFunnyStuff( dataString.toString() );
+      if (counter > 0) {
+        processAndReset();
       }
     }
     void addElement(String element){
