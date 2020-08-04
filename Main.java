@@ -1,5 +1,10 @@
 public class Main {
   void buildQueryAndProcessFunnyStuff(String dataString) { }
+  private class StuffProcessor {
+    void execute(String str){
+      buildQueryAndProcessFunnyStuff( str );
+    }
+  }
   private class Chunk {
     private int counter; 
     private int size; 
@@ -14,12 +19,10 @@ public class Main {
         processAndReset();
       }
     }
-    void execute(String str){
-      buildQueryAndProcessFunnyStuff( str );
-    }
     void processAndReset(){
       // Process 20K chunk
-      execute(dataString.toString());
+      StuffProcessor processor = new StuffProcessor();
+      processor.execute(dataString.toString());
 
       dataString = new StringBuffer();
       counter = 0; // Reset the Counter
