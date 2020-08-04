@@ -9,15 +9,7 @@ public class Main {
       counter = 0; // Reset the Counter
     }
   }
-  void processByChunks(String[] paramArray) {
-    StringBuffer dataString = new StringBuffer();
-    int counter = 0;
-    for (String param : paramArray) {
-        dataString.append( param ).append(",");
-        counter++;
-        processIfFullChunk(counter, dataString);
-    }
-  
+  void finalizeChunk(StringBuffer dataString){
     /*
     * WARNING: Code duplication
     * 
@@ -26,6 +18,16 @@ public class Main {
     if (dataString!= null && dataString.length() > 0) {
         buildQueryAndProcessFunnyStuff( dataString.toString() );
     }
+  }
+  void processByChunks(String[] paramArray) {
+    StringBuffer dataString = new StringBuffer();
+    int counter = 0;
+    for (String param : paramArray) {
+        dataString.append( param ).append(",");
+        counter++;
+        processIfFullChunk(counter, dataString);
+    }
+    finalizeChunk(dataString);
   }
   public static void main(String[] args){
 
