@@ -1,7 +1,13 @@
 public class Main {
   void buildQueryAndProcessFunnyStuff(String dataString) { }
   private class Chunk {
-    void processIfFull(int counter, StringBuffer dataString){
+    private int counter; 
+    private StringBuffer dataString;
+    Chunk(int counter, StringBuffer dataString) {
+      this.counter = counter;
+      this.dataString = dataString; 
+    }
+    void processIfFull(){
       if (counter % 20000 == 0) {
         // Process 20K chunk
         buildQueryAndProcessFunnyStuff( dataString.toString() );
@@ -10,7 +16,7 @@ public class Main {
         counter = 0; // Reset the Counter
       }
     }
-    void finalizeChunk(StringBuffer dataString){
+    void finalizeChunk(){
       /*
       * WARNING: Code duplication
       * 
@@ -20,20 +26,20 @@ public class Main {
           buildQueryAndProcessFunnyStuff( dataString.toString() );
       }
     }
-    void addElement(String element, int counter, StringBuffer dataString){
+    void addElement(String element){
       dataString.append( element ).append(",");
       counter++;
-      processIfFull(counter, dataString);
+      processIfFull();
     }
   }
   void processByChunks(String[] paramArray) {
     StringBuffer dataString = new StringBuffer();
     int counter = 0;
-    Chunk chunk = new Chunk();
+    Chunk chunk = new Chunk(counter, dataString);
     for (String param : paramArray) {
-      chunk.addElement(param, counter, dataString);
+      chunk.addElement(param);
     }
-    chunk.finalizeChunk(dataString);
+    chunk.finalizeChunk();
   }
   public static void main(String[] args){
 
