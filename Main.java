@@ -2,13 +2,15 @@ public class Main {
   void buildQueryAndProcessFunnyStuff(String dataString) { }
   private class Chunk {
     private int counter; 
+    private int size; 
     private StringBuffer dataString;
-    Chunk(int counter, StringBuffer dataString) {
+    Chunk(int counter, StringBuffer dataString, int size) {
       this.counter = counter;
       this.dataString = dataString; 
+      this.size = size;
     }
     void processIfFull(){
-      if (counter % 20000 == 0) {
+      if (counter % size == 0) {
         // Process 20K chunk
         buildQueryAndProcessFunnyStuff( dataString.toString() );
 
@@ -35,7 +37,7 @@ public class Main {
   void processByChunks(String[] paramArray) {
     StringBuffer dataString = new StringBuffer();
     int counter = 0;
-    Chunk chunk = new Chunk(counter, dataString);
+    Chunk chunk = new Chunk(counter, dataString, 20000);
     for (String param : paramArray) {
       chunk.addElement(param);
     }
