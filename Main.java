@@ -4,9 +4,9 @@ public class Main {
     private int counter; 
     private int size; 
     private StringBuffer dataString;
-    Chunk(int counter, StringBuffer dataString, int size) {
-      this.counter = counter;
-      this.dataString = dataString; 
+    Chunk(int size) {
+      dataString = new StringBuffer();
+      counter = 0;
       this.size = size;
     }
     void processIfFull(){
@@ -35,9 +35,7 @@ public class Main {
     }
   }
   void processByChunks(String[] paramArray) {
-    StringBuffer dataString = new StringBuffer();
-    int counter = 0;
-    Chunk chunk = new Chunk(counter, dataString, 20000);
+    Chunk chunk = new Chunk(20000);
     for (String param : paramArray) {
       chunk.addElement(param);
     }
