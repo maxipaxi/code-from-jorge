@@ -12,7 +12,9 @@ public class Main {
     private int counter; 
     private int size; 
     private StringBuffer dataString;
-    Chunk(int size) {
+    private StuffProcessor processor;
+    Chunk(int size, StuffProcessor processor) {
+      this.processor = processor;
       dataString = new StringBuffer();
       counter = 0;
       this.size = size;
@@ -24,7 +26,6 @@ public class Main {
     }
     void processAndReset(){
       // Process 20K chunk
-      StuffProcessor processor = new StuffProcessorImpl();
       processor.execute(dataString.toString());
 
       dataString = new StringBuffer();
@@ -42,7 +43,7 @@ public class Main {
     }
   }
   void processByChunks(String[] paramArray) {
-    Chunk chunk = new Chunk(20000);
+    Chunk chunk = new Chunk(20000, new StuffProcessorImpl());
     for (String param : paramArray) {
       chunk.addElement(param);
     }
