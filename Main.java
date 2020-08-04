@@ -1,7 +1,10 @@
 public class Main {
   void buildQueryAndProcessFunnyStuff(String dataString) { }
-  private class StuffProcessor {
-    void execute(String str){
+  private interface StuffProcessor {
+    void execute(String str);
+  }
+  private class StuffProcessorImpl implements StuffProcessor {
+    public void execute(String str){
       buildQueryAndProcessFunnyStuff( str );
     }
   }
@@ -21,7 +24,7 @@ public class Main {
     }
     void processAndReset(){
       // Process 20K chunk
-      StuffProcessor processor = new StuffProcessor();
+      StuffProcessor processor = new StuffProcessorImpl();
       processor.execute(dataString.toString());
 
       dataString = new StringBuffer();
